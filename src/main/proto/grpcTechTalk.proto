@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.msouza";
+option java_outer_classname = "GrpcTechTalk";
+
+package com.msouza;
+
+service GrpcTechTalkService {
+  // Unary Call
+  rpc Greet(GreetRequest) returns (GreetResponse){}
+
+  // Server Streaming Call
+  rpc GreetManyTimes(GreetRequest) returns (stream GreetResponse){}
+
+  // Client Streaming Call
+  rpc LongGreet(stream GreetRequest) returns (GreetResponse){}
+
+  // Bi-directional Streaming Call
+  rpc GreetEveryone (stream GreetRequest) returns (stream GreetResponse){}
+
+  // Deadline
+  // Setting client deadline (timeout)
+  rpc GreetWithDeadline (GreetRequest) returns (GreetResponse){}
+
+  // error handling
+  // This RPC throw an exception if the first_name or last_name is empty
+  // The error being sent is of type INVALID_ARGUMENT
+  rpc GreetWithErrorHandling (GreetRequest) returns (GreetResponse){}
+}
+
+message Greeting {
+  string first_name = 1;
+  string last_name = 2;
+}
+
+message GreetRequest {
+  Greeting greeting = 1;
+}
+
+message GreetResponse {
+  string result = 1;
+}

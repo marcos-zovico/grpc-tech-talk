@@ -1,14 +1,7 @@
 package com.msouza.grpc.client
 
-import com.msouza.grpc.client.request.BidirectionalStreamingRequest
-import com.msouza.grpc.client.request.ClientStreamingRequest
-import com.msouza.grpc.client.request.ServerStreamingRequest
-import com.msouza.grpc.client.request.UnaryRequest
-import io.grpc.ManagedChannel
+import com.msouza.grpc.client.request.*
 import io.grpc.ManagedChannelBuilder
-import io.grpc.netty.shaded.io.grpc.netty.GrpcSslContexts
-import io.grpc.netty.shaded.io.grpc.netty.NettyChannelBuilder
-import java.io.File
 
 class GrpcTechTalkClient {
 
@@ -21,15 +14,9 @@ class GrpcTechTalkClient {
 //        UnaryRequest().doUnaryCall(channel)
 //        ServerStreamingRequest().doServerStreamingCall(channel)
 //        ClientStreamingRequest().doClientStreamingCall(channel)
-        BidirectionalStreamingRequest().doBidiStreamingCall(channel)
+//        BidirectionalStreamingRequest().doBidiStreamingCall(channel)
+        UnaryWithDeadlineRequest().doUnaryCallWithDeadline(channel)
+//      UnaryWithErrorHandlingRequest().doUnaryCallWithErrorHandling(channel)
 
     }
-
-    fun runSecureClient() {
-       val secureChannel = NettyChannelBuilder.forAddress("localhost", 50051)
-                .sslContext(GrpcSslContexts.forClient().trustManager(File("ssl/ca.crt")).build())
-                .build()
-
-    }
-
 }

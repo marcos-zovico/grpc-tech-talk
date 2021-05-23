@@ -1,5 +1,6 @@
 package com.msouza.grpc.client
 
+import com.msouza.grpc.client.request.BidirectionalStreamingRequest
 import com.msouza.grpc.client.request.ClientStreamingRequest
 import com.msouza.grpc.client.request.ServerStreamingRequest
 import com.msouza.grpc.client.request.UnaryRequest
@@ -18,8 +19,9 @@ class GrpcTechTalkClient {
         println("gRPC client running")
 
 //        UnaryRequest().doUnaryCall(channel)
-        ServerStreamingRequest().doServerStreamingCall(channel)
+//        ServerStreamingRequest().doServerStreamingCall(channel)
 //        ClientStreamingRequest().doClientStreamingCall(channel)
+        BidirectionalStreamingRequest().doBidiStreamingCall(channel)
 
     }
 

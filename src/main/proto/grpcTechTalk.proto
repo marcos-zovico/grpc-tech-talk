@@ -1,10 +1,9 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "com.msouza";
+option java_package = "com.msouza.grpc";
 option java_outer_classname = "GrpcTechTalk";
 
-package com.msouza;
 
 service GrpcTechTalkService {
   // Unary Call

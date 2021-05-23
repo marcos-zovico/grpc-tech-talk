@@ -1,1 +1,1 @@
-# grpc-tech-talk 3
+# grpc-tech-talk

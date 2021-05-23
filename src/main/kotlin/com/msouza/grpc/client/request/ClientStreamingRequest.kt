@@ -1,10 +1,10 @@
 package com.msouza.grpc.client.request
 
 import com.github.javafaker.Faker
-import com.msouza.GreetRequest
-import com.msouza.GreetResponse
-import com.msouza.Greeting
-import com.msouza.GrpcTechTalkServiceGrpc
+import com.msouza.grpc.GreetRequest
+import com.msouza.grpc.GreetResponse
+import com.msouza.grpc.Greeting
+import com.msouza.grpc.GrpcTechTalkServiceGrpc
 import io.grpc.ManagedChannel
 import io.grpc.stub.StreamObserver
 import java.util.concurrent.CountDownLatch

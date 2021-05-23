@@ -1,55 +1,27 @@
 package com.msouza.grpc.server
 
-import com.msouza.GreetRequest
-import com.msouza.GreetResponse
-import com.msouza.Greeting
-import com.msouza.GrpcTechTalkServiceGrpc
+import com.msouza.grpc.GreetRequest
+import com.msouza.grpc.GreetResponse
+import com.msouza.grpc.GrpcTechTalkServiceGrpc
+import com.msouza.grpc.server.response.GreetEveryoneResponse
+import com.msouza.grpc.server.response.GreetManyTimesResponse
 import com.msouza.grpc.server.response.LongGreetResponse
 import io.grpc.stub.StreamObserver
-import java.util.concurrent.TimeUnit
+import com.msouza.grpc.server.response.GreetResponse as GreetUnaryResponse
 
 class GrpcTechTalkServiceImpl : GrpcTechTalkServiceGrpc.GrpcTechTalkServiceImplBase() {
 
-    override fun greet(request: GreetRequest, responseObserver: StreamObserver<GreetResponse>) {
+    override fun greet(request: GreetRequest, responseObserver: StreamObserver<GreetResponse>) =
+        GreetUnaryResponse().doResponse(request, responseObserver)
 
-        val greeting: Greeting = request.greeting
-
-        // create the response
-        val result = "Hello ${greeting.firstName} ${greeting.lastName}"
-        val response = GreetResponse.newBuilder()
-            .setResult(result)
-            .build()
-
-        // send the response
-        responseObserver.onNext(response)
-        // complete the RPC call
-        responseObserver.onCompleted()
-    }
-
-    override fun greetManyTimes(request: GreetRequest, responseObserver: StreamObserver<GreetResponse>) {
-        val firstName = request.greeting.firstName
-
-        println("Received message $firstName")
-
-        for (i in 1..10) {
-            val result = "Hello $firstName, response number: $i"
-            val response: GreetResponse = GreetResponse.newBuilder()
-                .setResult(result)
-                .build()
-            responseObserver.onNext(response)
-            TimeUnit.MILLISECONDS.sleep(500)
-        }
-
-        responseObserver.onCompleted()
-    }
-
+    override fun greetManyTimes(request: GreetRequest, responseObserver: StreamObserver<GreetResponse>) =
+        GreetManyTimesResponse().doResponse(request, responseObserver)
 
     override fun longGreet(responseObserver: StreamObserver<GreetResponse>): StreamObserver<GreetRequest> =
         LongGreetResponse().doResponse(responseObserver)
 
-    override fun greetEveryone(responseObserver: StreamObserver<GreetResponse>): StreamObserver<GreetRequest> {
-        return super.greetEveryone(responseObserver)
-    }
+    override fun greetEveryone(responseObserver: StreamObserver<GreetResponse>): StreamObserver<GreetRequest> =
+        GreetEveryoneResponse().doResponse(responseObserver)
 
     override fun greetWithDeadline(request: GreetRequest, responseObserver: StreamObserver<GreetResponse>) {
         super.greetWithDeadline(request, responseObserver)

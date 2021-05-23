@@ -1,14 +1,13 @@
 package com.msouza.grpc.server.response
 
-import com.msouza.GreetRequest
-import com.msouza.GreetResponse
+import com.msouza.grpc.GreetRequest
+import com.msouza.grpc.GreetResponse
 import io.grpc.stub.StreamObserver
 
 class LongGreetResponse {
 
-    fun doResponse(responseObserver: StreamObserver<GreetResponse>): StreamObserver<GreetRequest> {
-        // we create the requestObserver that we'll return in this function
-        return object : StreamObserver<GreetRequest> {
+    fun doResponse(responseObserver: StreamObserver<GreetResponse>) =
+        object : StreamObserver<GreetRequest> {
             var result = ""
             override fun onNext(value: GreetRequest) {
                 // client sends a message
@@ -29,6 +28,4 @@ class LongGreetResponse {
                 responseObserver.onCompleted()
             }
         }
-    }
-
 }
